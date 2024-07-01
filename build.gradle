@@ -1,0 +1,51 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        // Removed the Bintray plugin as it is no longer supported
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+ext {
+    sdk = 33
+    minSdk = 21
+
+    github = 'https://github.com/SquashVash/SingleDateAndTimePicker'
+
+    libraryGroup = 'com.github.SquashVash'
+    libraryName = 'singledateandtimepicker'
+    libraryVersion = "2.2.8"
+    libraryDescription = 'SingleDateAndTimePicker'
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = libraryGroup
+            artifactId = libraryName
+            version = libraryVersion
+        }
+    }
+    repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/SquashVash/SingleDateTimePicker")
+        }
+    }
+}
