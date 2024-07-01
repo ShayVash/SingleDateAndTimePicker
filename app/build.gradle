@@ -1,36 +1,41 @@
-apply plugin: 'com.android.application'
+plugins {
+    alias(libs.plugins.android.application)
+}
 
 android {
-    compileSdkVersion project.sdk
+    namespace 'com.kovets.datetimepickerproject'
+    compileSdk 34
 
     defaultConfig {
-        minSdkVersion project.minSdk
-        targetSdkVersion project.sdk
+        applicationId "com.kovets.datetimepickerproject"
+        minSdk 28
+        targetSdk 34
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
-        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
-    // The demo-app uses butterknife which require java8
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    android {
-        lintOptions {
-            abortOnError false
-        }
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-    implementation project(':singledateandtimepicker')
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    implementation project(':SingleDateTimePicker')
 }
